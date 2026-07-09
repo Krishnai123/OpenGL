@@ -1,5 +1,4 @@
-#pragma once
-
+#pragma once 
 #include<glad/glad.h>
 #include<string>
 #include<fstream>
@@ -21,4 +20,7 @@ public:
 	void Activate();
 	// Deletes the Shader Program
 	void Delete();
+private:
+	// Checks if the different Shaders have compiled properly
+	void compileErrors(unsigned int shader, const char* type);
 };

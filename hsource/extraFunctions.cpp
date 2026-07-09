@@ -17,11 +17,15 @@ int rd::randIntSign(int ub){
     return (x * ransign()); 
 }
 
-float rd::randf(){ 
+float rd::randsignf(){ 
     float x = static_cast <float> (rand())/static_cast <float> (RAND_MAX) ; 
     return (x * ransign()); 
 }
 
+float rd::randf(){
+    float x = static_cast<float>(rand())/ static_cast <float> (RAND_MAX); 
+    return x; 
+}
 float rd::randfb(float upper_bound){
     float x = static_cast <float> (rand())/static_cast <float> (RAND_MAX/upper_bound) ; 
     return (x * ransign()); 

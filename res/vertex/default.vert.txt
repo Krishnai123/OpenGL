@@ -1,0 +1,21 @@
+#version 330 core 
+
+// Position/ Co-ordinates 
+layout (location = 0) in vec3 aPos; 
+// Colours 
+layout (location = 1) in vec3 aColour; 
+// Textures 
+layout (location = 2) in vec2 aTex; 
+
+// Outputs the colour for the fragment shader 
+out vec3 colour; 
+
+out vec2 texCoord; 
+
+void main()
+{
+   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0); 
+   colour = aColour; 
+   texCoord = aTex; 
+} 
+

@@ -9,7 +9,8 @@
 namespace rd{
     void randseed();
     int ransign();
-    int randIntSign(int ub); 
+    int randIntSign(int ub);
+    float randsignf();
     float randf();
     float randfb(float upper_bound);
 }

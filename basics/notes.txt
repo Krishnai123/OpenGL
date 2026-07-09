@@ -1,0 +1,5 @@
+Based off of Victor Gordans playlist on open gl from freeCodeCAmp.org 
+
+https://www.youtube.com/watch?v=45MIykWJ-C4 
+
+-  Skipped textures but still have /stb in /include for textures 
