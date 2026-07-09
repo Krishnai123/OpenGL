@@ -7,13 +7,22 @@
             "command": "C:/msys64/ucrt64/bin/g++.exe",
             "args": [
                 "-g",
-                "-std=c++17",
+                "-std=c++17", 
+                
+                "-ffunction-sections",
+                "-fdata-sections",
+
                 "-I", "C:/OGL/include",
                 "-L", "C:/OGL/lib", 
+                
+                "${file}",
                 "C:/OGL/hsource/*.cpp",
-                "C:/OGL/src/colours.cpp",
                 "C:/OGL/src/glad.c",
-                "-lglfw3dll",
+                
+                "-lglfw3dll", 
+
+                "-Wl,--gc-sections",
+                
                 "-o",
                 "C:/OGL/exec/a.exe"
             ],
