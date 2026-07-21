@@ -1,26 +1,41 @@
-#version 330 core 
+#version 330 core
 
-// Position/ Co-ordinates 
-layout (location = 0) in vec3 aPos; 
-// Colours 
-layout (location = 1) in vec3 aColour; 
-// Textures 
-layout (location = 2) in vec2 aTex; 
+// Positions/Coordinates
+layout (location = 0) in vec3 aPos;
+// Colours
+layout (location = 1) in vec3 aColour;
+// Texture Coordinates
+layout (location = 2) in vec2 aTex;
+// Normals (not necessarily normalized)
+layout (location = 3) in vec3 aNormal;
 
-// Outputs the colour for the fragment shader 
-out vec3 colour; 
 
-out vec2 texCoord; 
+// Outputs the colour for the Fragment Shader
+out vec3 colour;
+// Outputs the texture coordinates to the Fragment Shader
+out vec2 texCoord;
+// Outputs the normal for the Fragment Shader
+out vec3 Normal;
+// Outputs the current position for the Fragment Shader
+out vec3 crntPos;
 
-uniform mat4 model; 
-uniform mat4 view; 
-uniform mat4 proj; 
+// Imports the camera matrix from the main function
+uniform mat4 camMatrix;
+// Imports the model matrix from the main function
+uniform mat4 model;
 
 
 void main()
 {
-   gl_Position = proj * view * model * vec4(aPos, 1.0f); 
-   colour = aColour; 
-   texCoord = aTex; 
-} 
+	// calculates current position
+	crntPos = vec3(model * vec4(aPos, 1.0f));
+	// Outputs the positions/coordinates of all vertices
+	gl_Position = camMatrix * vec4(crntPos, 1.0);
 
+	// Assigns the colours from the Vertex Data to "colour"
+	colour = aColour;
+	// Assigns the texture coordinates from the Vertex Data to "texCoord"
+	texCoord = aTex;
+	// Assigns the normal from the Vertex Data to "Normal"
+	Normal = aNormal;
+}

@@ -110,7 +110,7 @@ int main()
 
 		double currentTime = glfwGetTime(); 
 		if (currentTime - prevTime >= 1.0f / 60.0f){
-			rotation += 15.0f ; 
+			rotation += 5.0f ; 
 			prevTime = currentTime; 
 		}
 

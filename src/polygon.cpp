@@ -1,9 +1,6 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h> 
-#include<glm/glm.hpp>
-#include<glm/gtc/matrix_transform.hpp> 
-#include<glm/gtc/type_ptr.hpp> 
 
 #include"shaderClass.h"
 #include"VAO.h"
@@ -73,7 +70,7 @@ int main()
 	glfwSetFramebufferSizeCallback(window, et::framebuffer_size_callback); 
 
 	// Generates Shader object using shaders defualt.vert and default.frag
-	Shader shaderProgram("C:/OGL/res/vertex/mat.vert.txt", "C:/OGL/res/fragment/default.frag.txt");
+	Shader shaderProgram("C:/OGL/res/vertex/default.vert.txt", "C:/OGL/res/fragment/default.frag.txt");
 
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
@@ -94,46 +91,15 @@ int main()
 	VBO1.Unbind();
 	// EBO1.Unbind(); 
 
-	glEnable(GL_DEPTH_TEST); 
-	float xr = rd::randf(); 
-	float yr = rd::randf(); 
-	float zr = rd::randf(); 
-
-	float rotation = 0.0f; 
-	double prevTime = glfwGetTime(); 
-
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		// Clean the back buffer and assign the new color to it
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		shaderProgram.Activate(); 
-
-		double currentTime = glfwGetTime(); 
-		if (currentTime - prevTime >= 1.0f / 60.0f){
-			rotation += 0.35f ; 
-			prevTime = currentTime; 
-		}
-
-		glm::mat4 model = glm::mat4(1.0f); 
-		glm::mat4 view  = glm::mat4(1.0f); 
-		glm::mat4 proj  = glm::mat4(1.0f); 
-
-		glfwGetWindowSize(window, &width, &height); 
-
-		model = glm::rotate(model, glm::radians(-rotation), glm::vec3(rd::randf(), rd::randf(), rd::randf())); 
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -2.0f)); 
-		proj = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f); 
-
-		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model"); 
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); 
-		int viewLoc = glGetUniformLocation(shaderProgram.ID, "view"); 
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view)); 
-		int projLoc = glGetUniformLocation(shaderProgram.ID, "proj"); 
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj)); 
 
 		// Bind the VAO so OpenGL knows to use it
 		VAO1.Bind();
@@ -141,7 +107,6 @@ int main()
 		// glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 		glDrawArrays(GL_LINE_LOOP, 0, noSides); 
 		et::processInput(window); 
-
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
@@ -153,7 +118,6 @@ int main()
 	VBO1.Delete();
 	// EBO1.Delete();
 	shaderProgram.Delete();
-
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program
